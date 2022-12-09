@@ -267,21 +267,8 @@ var listPodCommand = &cli.Command{
 				return err
 			}
 			for _, psb := range psbs {
-				logger := logrus.WithFields(logrus.Fields{"name": psb.Metadata.Name, "namespace": psb.Metadata.Namespace, "memory": psb})
-				logger.Infoln("pod found")
-				psbsStats, err := crictl.ListPodSandboxStats(runtimeClient, psb.Id)
-				if err != nil {
-					logger.WithError(err).Errorln("list pod sandbox error")
-					continue
-				}
-				if len(psbsStats) != 1 {
-					logger.Warnf("len(psbsStatus) == %d", len(psbsStats))
-					continue
-				}
-				psbStats := psbsStats[0]
-				if psbStats != nil && psbStats.Linux != nil {
-					logger.WithField("cpu", psbStats.Linux.Cpu.String()).WithField("memory", psbStats.Linux.Memory.String()).Infoln("resource")
-				}
+				logger := logrus.WithFields(logrus.Fields{"name": psb.Metadata.Name, "namespace": psb.Metadata.Namespace})
+				logger.Infoln("pod found, try collect statistics on usage")
 			}
 		}
 		return nil
