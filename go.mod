@@ -1,11 +1,8 @@
-module kubefee
+module github.com/dashjay/kubebilling
 
 go 1.18
 
 require (
-	github.com/docker/go-units v0.4.0
-	github.com/ghodss/yaml v1.0.0
-	github.com/gogo/protobuf v1.3.2
 	github.com/kubernetes-sigs/cri-tools v1.25.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/urfave/cli/v2 v2.23.6
@@ -26,6 +23,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.5 // indirect
 	github.com/go-openapi/swag v0.19.14 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/gnostic v0.5.7-v3refs // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
