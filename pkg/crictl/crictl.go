@@ -77,8 +77,8 @@ func ListPodSandboxes(client internalapi.RuntimeService, opts ListOptions) ([]*r
 	return getSandboxesList(r, opts), nil
 }
 
-func ListPodSandboxStats(client internalapi.RuntimeService, podId string) ([]*runtimePb.PodSandboxStats, error) {
-	return client.ListPodSandboxStats(&runtimePb.PodSandboxStatsFilter{Id: podId})
+func GetPodSandboxStats(client internalapi.RuntimeService, podId string) (*runtimePb.PodSandboxStatusResponse, error) {
+	return client.PodSandboxStatus(podId, true)
 }
 
 type sandboxByCreated []*runtimePb.PodSandbox

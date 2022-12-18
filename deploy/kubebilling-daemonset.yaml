@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: kubebilling
+  name: kubebilling-ds
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: kubebilling
+  template:
+    metadata:
+      labels:
+        app: kubebilling
+    spec:
+      volumes:
+        - name: "containerd-sock"
+          hostPath:
+            path: "/run/containerd/containerd.sock"
+      containers:
+        - command:
+            - /usr/local/bin/kubebilling-daemon
+            - -filter-label
+            - k8s-app=kindnet
+            - --runtime-endpoint
+            - //run/containerd/containerd.sock
+          image:  kubebilling/daemon:latest
+          imagePullPolicy: IfNotPresent
+          name: billing
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: "/run/containerd/containerd.sock"
+              name: "containerd-sock"
